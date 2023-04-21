@@ -5,30 +5,19 @@ export const Context = createContext();
 
 const ProductContext =({children})=>{
 
-    const[loading, setLoading]=useState(false);
 
-    const [products, setProducts]= useState([])
+    const [user, setUser]= useState({})
+    const [dataLists, setDataLists]= useState({})
+    const [inActiveLists, setInActiveLists]= useState({})
 
-    useEffect(()=>{
-        setLoading(true)
+    const [formData, setFormData]=useState({
+        username:'',
+        password:''});
 
-        async function getProducts(){
-            const apiResponse= await fetch('https://dummyjson.com/products');
-            const finalData= await apiResponse.json();
-            if(finalData){
-                setTimeout(()=>{
-                    setLoading(false)
-                }, 1000)
-                setProducts(finalData.products);
-       
-            }
-        }
-        getProducts()
-
-    }, [])
 
     return (
-        <Context.Provider value={{products, loading}}>
+        <Context.Provider value={{ user , setUser ,
+            dataLists, setDataLists, setFormData, formData, setInActiveLists, inActiveLists}}>
             {children}
         </Context.Provider>
     )
